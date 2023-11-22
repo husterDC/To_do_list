@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panelDate = new System.Windows.Forms.Panel();
             this.panelJob = new System.Windows.Forms.Panel();
+            this.panelDate = new System.Windows.Forms.Panel();
+            this.btnNextday = new System.Windows.Forms.Button();
+            this.btnYesterday = new System.Windows.Forms.Button();
             this.dateTimePickerDate = new System.Windows.Forms.DateTimePicker();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.addJobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TodayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnYesterday = new System.Windows.Forms.Button();
-            this.btnNextday = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panelDate.SuspendLayout();
             this.menuStripMain.SuspendLayout();
@@ -47,33 +47,60 @@
             this.panel1.Controls.Add(this.panelJob);
             this.panel1.Controls.Add(this.panelDate);
             this.panel1.Location = new System.Drawing.Point(13, 31);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(904, 546);
             this.panel1.TabIndex = 0;
+            // 
+            // panelJob
+            // 
+            this.panelJob.Location = new System.Drawing.Point(3, 50);
+            this.panelJob.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panelJob.Name = "panelJob";
+            this.panelJob.Size = new System.Drawing.Size(899, 491);
+            this.panelJob.TabIndex = 1;
             // 
             // panelDate
             // 
             this.panelDate.Controls.Add(this.btnNextday);
             this.panelDate.Controls.Add(this.btnYesterday);
             this.panelDate.Controls.Add(this.dateTimePickerDate);
-            this.panelDate.Location = new System.Drawing.Point(3, 3);
+            this.panelDate.Location = new System.Drawing.Point(3, 2);
+            this.panelDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelDate.Name = "panelDate";
-            this.panelDate.Size = new System.Drawing.Size(898, 30);
+            this.panelDate.Size = new System.Drawing.Size(899, 43);
             this.panelDate.TabIndex = 0;
             // 
-            // panelJob
+            // btnNextday
             // 
-            this.panelJob.Location = new System.Drawing.Point(3, 34);
-            this.panelJob.Name = "panelJob";
-            this.panelJob.Size = new System.Drawing.Size(898, 507);
-            this.panelJob.TabIndex = 1;
+            this.btnNextday.Location = new System.Drawing.Point(576, 9);
+            this.btnNextday.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnNextday.Name = "btnNextday";
+            this.btnNextday.Size = new System.Drawing.Size(112, 26);
+            this.btnNextday.TabIndex = 2;
+            this.btnNextday.Text = "Ngày mai";
+            this.btnNextday.UseVisualStyleBackColor = true;
+            this.btnNextday.Click += new System.EventHandler(this.btnNextday_Click);
+            // 
+            // btnYesterday
+            // 
+            this.btnYesterday.Location = new System.Drawing.Point(212, 9);
+            this.btnYesterday.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnYesterday.Name = "btnYesterday";
+            this.btnYesterday.Size = new System.Drawing.Size(112, 26);
+            this.btnYesterday.TabIndex = 1;
+            this.btnYesterday.Text = "Hôm qua";
+            this.btnYesterday.UseVisualStyleBackColor = true;
+            this.btnYesterday.Click += new System.EventHandler(this.btnYesterday_Click);
             // 
             // dateTimePickerDate
             // 
-            this.dateTimePickerDate.Location = new System.Drawing.Point(346, 5);
+            this.dateTimePickerDate.Location = new System.Drawing.Point(351, 10);
+            this.dateTimePickerDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateTimePickerDate.Name = "dateTimePickerDate";
             this.dateTimePickerDate.Size = new System.Drawing.Size(200, 22);
             this.dateTimePickerDate.TabIndex = 0;
+            this.dateTimePickerDate.ValueChanged += new System.EventHandler(this.dateTimePickerDate_ValueChanged);
             // 
             // menuStripMain
             // 
@@ -83,6 +110,7 @@
             this.TodayToolStripMenuItem});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
+            this.menuStripMain.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
             this.menuStripMain.Size = new System.Drawing.Size(929, 28);
             this.menuStripMain.TabIndex = 1;
             this.menuStripMain.Text = "menuStrip1";
@@ -99,33 +127,17 @@
             this.TodayToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.TodayToolStripMenuItem.Text = "Hôm nay";
             // 
-            // btnYesterday
-            // 
-            this.btnYesterday.Location = new System.Drawing.Point(246, 4);
-            this.btnYesterday.Name = "btnYesterday";
-            this.btnYesterday.Size = new System.Drawing.Size(75, 23);
-            this.btnYesterday.TabIndex = 1;
-            this.btnYesterday.Text = "Hôm qua";
-            this.btnYesterday.UseVisualStyleBackColor = true;
-            // 
-            // btnNextday
-            // 
-            this.btnNextday.Location = new System.Drawing.Point(572, 4);
-            this.btnNextday.Name = "btnNextday";
-            this.btnNextday.Size = new System.Drawing.Size(75, 23);
-            this.btnNextday.TabIndex = 2;
-            this.btnNextday.Text = "Ngày mai";
-            this.btnNextday.UseVisualStyleBackColor = true;
-            // 
             // DailyPlan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(929, 584);
+            this.ClientSize = new System.Drawing.Size(929, 583);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStripMain);
             this.MainMenuStrip = this.menuStripMain;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "DailyPlan";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Lịch trong ngày";
             this.panel1.ResumeLayout(false);
             this.panelDate.ResumeLayout(false);

@@ -12,9 +12,13 @@ namespace To_do_list
 {
     public partial class AJob : UserControl
     {
-        public AJob()
+        private PlanItem job;
+        public AJob(PlanItem job)
         {
             InitializeComponent();
+            this.Job = job;
         }
+
+        public PlanItem Job { get => job; set => job = value; }
     }
 }
