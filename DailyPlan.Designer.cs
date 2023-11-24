@@ -120,12 +120,14 @@
             this.addJobToolStripMenuItem.Name = "addJobToolStripMenuItem";
             this.addJobToolStripMenuItem.Size = new System.Drawing.Size(90, 24);
             this.addJobToolStripMenuItem.Text = "Thêm việc";
+            this.addJobToolStripMenuItem.Click += new System.EventHandler(this.addJobToolStripMenuItem_Click);
             // 
             // TodayToolStripMenuItem
             // 
             this.TodayToolStripMenuItem.Name = "TodayToolStripMenuItem";
             this.TodayToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.TodayToolStripMenuItem.Text = "Hôm nay";
+            this.TodayToolStripMenuItem.Click += new System.EventHandler(this.TodayToolStripMenuItem_Click);
             // 
             // DailyPlan
             // 

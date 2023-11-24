@@ -42,10 +42,31 @@ namespace To_do_list
                 List<PlanItem> todayJob = GetJobByDate(date);
                 for (int i = 0; i < todayJob.Count; i++)
                 {
-                    AJob aJob = new AJob(todayJob[i]);
-                    fPanel.Controls.Add(aJob);
+                    AddJob(todayJob[i]);
+                    
                 }
             }
+        }
+
+        void AddJob(PlanItem job)
+        {
+            AJob aJob = new AJob(job);
+            aJob.Edited += AJob_Edited;
+            aJob.Deleted += AJob_Deleted;
+            fPanel.Controls.Add(aJob);
+        }
+        private void AJob_Deleted(object sender, EventArgs e)
+        {
+            AJob uc = sender as AJob;
+            PlanItem job = uc.Job;
+
+            fPanel.Controls.Remove(uc);
+            Job.Job.Remove(job);
+        }
+
+        private void AJob_Edited(object sender, EventArgs e)
+        {
+            
         }
 
         List<PlanItem> GetJobByDate(DateTime date)
@@ -66,6 +87,19 @@ namespace To_do_list
         private void btnNextday_Click(object sender, EventArgs e)
         {
             dateTimePickerDate.Value = dateTimePickerDate.Value.AddDays(1);
+        }
+
+        private void addJobToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            PlanItem item = new PlanItem() { Date = dateTimePickerDate.Value };
+            Job.Job.Add(item);
+            AddJob(item);
+        }
+
+        private void TodayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dateTimePickerDate.Value = DateTime.Now;
         }
     }
 }

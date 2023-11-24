@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,7 +15,10 @@ namespace To_do_list
 {
     public partial class Form1 : Form
     {
+        
+
         private string filePath = "data.XML";
+        private string filePath2 = "dataNotify.XML";
 
         private List<List<Button>> Matrix;
 
@@ -22,19 +26,51 @@ namespace To_do_list
 
         private PlanData job;
 
+        private int appTime;
+
+        
         
 
         public List<List<Button>> Matrix1 { get => Matrix; set => Matrix = value; }
         public PlanData Job { get => job; set => job = value; }
+        public int AppTime { get => appTime; set => appTime = value; }
+        
 
         public Form1()
         {
             InitializeComponent();
             LoadMatrix();
 
+            //Đăng kí khởi chạy cùng window
+            RegistryKey regkey = Registry.CurrentUser.CreateSubKey("Software\\To_do_list");
+            //mo registry khoi dong cung win
+            RegistryKey regstart = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run");
+            string keyvalue = "1";
+            //string subkey = "Software\\ManhQuyen";
+            try
+            {
+                //chen gia tri key
+                regkey.SetValue("Index", keyvalue);
+                //regstart.SetValue("taoregistrytronghethong", "E:\\Studing\\Bai Tap\\CSharp\\Channel 4\\bai temp\\tao registry trong he thong\\tao registry trong he thong\\bin\\Debug\\tao registry trong he thong.exe");
+                regstart.SetValue("To_do_list", Application.StartupPath + "\\To_do_list.exe");
+                ////dong tien trinh ghi key
+                //regkey.Close();
+            }
+            catch (System.Exception ex)
+            {
+            }
+            timerNotify.Start();
+            appTime = 0;
+
+            
             try
             {
                 Job = DeseializeFromXML(filePath) as PlanData;
+                if (Job == null)
+                {
+                    Job = new PlanData();
+                    Job.Job = new List<PlanItem>();
+                }
             } catch 
             {
                 SetDefaultJob();
@@ -45,37 +81,6 @@ namespace To_do_list
         {
             Job = new PlanData();
             Job.Job = new List<PlanItem>();
-            Job.Job.Add(new PlanItem() 
-            { Date = DateTime.Now, 
-              FromTime = new Point(4,0),
-              ToTime = new Point(5,0),
-              Job = "Thử nghiệm1",
-              Status = PlanItem.ListStatus[(int)EPlanItem.Coming] 
-            });
-            Job.Job.Add(new PlanItem()
-            {
-                Date = DateTime.Now.AddDays(-1),
-                FromTime = new Point(4, 0),
-                ToTime = new Point(5, 0),
-                Job = "Thử nghiệm2",
-                Status = PlanItem.ListStatus[(int)EPlanItem.Coming]
-            });
-            Job.Job.Add(new PlanItem()
-            {
-                Date = DateTime.Now,
-                FromTime = new Point(4, 0),
-                ToTime = new Point(5, 0),
-                Job = "Thử nghiệm3",
-                Status = PlanItem.ListStatus[(int)EPlanItem.Coming]
-            });
-            Job.Job.Add(new PlanItem()
-            {
-                Date = DateTime.Now.AddDays(1),
-                FromTime = new Point(4, 0),
-                ToTime = new Point(5, 0),
-                Job = "Thử nghiệm4",
-                Status = PlanItem.ListStatus[(int)EPlanItem.Coming]
-            });
         }
         void LoadMatrix()
         {
@@ -207,12 +212,12 @@ namespace To_do_list
 
         private void SerializeToXML(object data, string filePath)
         {
-            FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate,FileAccess.Write);
+            FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
             XmlSerializer sr = new XmlSerializer(typeof(PlanData));
-
             sr.Serialize(fs, data);
 
             fs.Close();
+
         }
 
         private object DeseializeFromXML(string filePath)
@@ -224,19 +229,50 @@ namespace To_do_list
                 object result = sr.Deserialize(fs);
                 fs.Close();
                 return result;
-            } catch (Exception)
+
+                
+            } catch (Exception e)
             {
                 fs.Close();
                 throw new NotImplementedException();
-            }
-            
-
+            }           
             
         }
+
+        
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             SerializeToXML(job, filePath);
+        }
+
+        private void timerNotify_Tick(object sender, EventArgs e)
+        {
+            if (!checkBoxNotify.Checked)
+                return;
+            AppTime++;
+            if (AppTime == 1 || AppTime < Const.notifyTime)
+                return;
+            if (Job == null || Job.Job == null)
+                return;
+            DateTime today = DateTime.Now;
+            List<PlanItem> todayJob = Job.Job.Where(p=>p.Date.Year == today.Year && p.Date.Month == today.Month && p.Date.Day == today.Day).ToList();
+            List<PlanItem> todayJobDoing = todayJob.Where(p => p.Status == "Doing").ToList();
+            List<PlanItem> todayJobComing = Job.Job.Where(p => p.Status == "Coming").ToList();
+            Notify.ShowBalloonTip(Const.notifyTimeOut, "Lịch trình công việc", string.Format("Bạn có {0} việc cần làm trong ngày hôm nay\n{1} việc chưa hoàn thành.\n{2} việc sắp tới.", todayJob.Count, todayJobDoing.Count, todayJobComing.Count), ToolTipIcon.Info);
+
+            AppTime = 0;
+        }
+
+        private void checkBoxNotify_CheckedChanged(object sender, EventArgs e)
+        {
+            nUDNotify.Enabled = checkBoxNotify.Checked;
+        }
+
+        private void nUDNotify_ValueChanged(object sender, EventArgs e)
+        {
+            Const.notifyTime = (int)nUDNotify.Value;
+            
         }
     }
 }

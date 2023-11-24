@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -47,6 +49,8 @@
             this.btnWednesday = new System.Windows.Forms.Button();
             this.btnTuseday = new System.Windows.Forms.Button();
             this.btnMonday = new System.Windows.Forms.Button();
+            this.timerNotify = new System.Windows.Forms.Timer(this.components);
+            this.Notify = new System.Windows.Forms.NotifyIcon(this.components);
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -103,10 +107,13 @@
             0,
             0,
             0});
+            this.nUDNotify.ValueChanged += new System.EventHandler(this.nUDNotify_ValueChanged);
             // 
             // checkBoxNotify
             // 
             this.checkBoxNotify.AutoSize = true;
+            this.checkBoxNotify.Checked = true;
+            this.checkBoxNotify.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxNotify.Location = new System.Drawing.Point(16, 11);
             this.checkBoxNotify.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxNotify.Name = "checkBoxNotify";
@@ -114,6 +121,7 @@
             this.checkBoxNotify.TabIndex = 3;
             this.checkBoxNotify.Text = "Thông báo";
             this.checkBoxNotify.UseVisualStyleBackColor = true;
+            this.checkBoxNotify.CheckedChanged += new System.EventHandler(this.checkBoxNotify_CheckedChanged);
             // 
             // Today
             // 
@@ -262,12 +270,25 @@
             this.btnMonday.Text = "Thứ 2";
             this.btnMonday.UseVisualStyleBackColor = true;
             // 
+            // timerNotify
+            // 
+            this.timerNotify.Enabled = true;
+            this.timerNotify.Interval = 60000;
+            this.timerNotify.Tick += new System.EventHandler(this.timerNotify_Tick);
+            // 
+            // Notify
+            // 
+            this.Notify.Icon = ((System.Drawing.Icon)(resources.GetObject("Notify.Icon")));
+            this.Notify.Text = "To_do_list";
+            this.Notify.Visible = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1053, 641);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -305,6 +326,8 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.NumericUpDown nUDNotify;
         private System.Windows.Forms.CheckBox checkBoxNotify;
+        private System.Windows.Forms.Timer timerNotify;
+        private System.Windows.Forms.NotifyIcon Notify;
     }
 }
 
