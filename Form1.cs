@@ -18,7 +18,7 @@ namespace To_do_list
         
 
         private string filePath = "data.XML";
-        private string filePath2 = "dataNotify.XML";
+       
 
         private List<List<Button>> Matrix;
 
@@ -28,18 +28,18 @@ namespace To_do_list
 
         private int appTime;
 
+       
+        
         
         
 
         public List<List<Button>> Matrix1 { get => Matrix; set => Matrix = value; }
         public PlanData Job { get => job; set => job = value; }
         public int AppTime { get => appTime; set => appTime = value; }
-        
-
+       
         public Form1()
         {
-            InitializeComponent();
-            LoadMatrix();
+           
 
             //Đăng kí khởi chạy cùng window
             RegistryKey regkey = Registry.CurrentUser.CreateSubKey("Software\\To_do_list");
@@ -59,28 +59,46 @@ namespace To_do_list
             catch (System.Exception ex)
             {
             }
-            timerNotify.Start();
-            appTime = 0;
 
-            
+       
             try
             {
                 Job = DeseializeFromXML(filePath) as PlanData;
+
+
                 if (Job == null)
                 {
                     Job = new PlanData();
                     Job.Job = new List<PlanItem>();
+                    Job.NotifyTime = 1;
+                    Job.NotifyStatus = false;
                 }
             } catch 
             {
                 SetDefaultJob();
             }
+
+            InitializeComponent();
+            LoadMatrix();
+            LoadNotify();
+            timerNotify.Start();
+            appTime = 0;
         }
 
         void SetDefaultJob()
         {
             Job = new PlanData();
             Job.Job = new List<PlanItem>();
+            Job.NotifyTime = 1;
+            Job.NotifyStatus = false;
+        }
+
+
+        void LoadNotify()
+        {
+            nUDNotify.Value = Job.NotifyTime;
+            checkBoxNotify.Checked = Job.NotifyStatus;
+            nUDNotify.Enabled = Job.NotifyStatus;
         }
         void LoadMatrix()
         {
@@ -251,7 +269,7 @@ namespace To_do_list
             if (!checkBoxNotify.Checked)
                 return;
             AppTime++;
-            if (AppTime == 1 || AppTime < Const.notifyTime)
+            if (AppTime == 1 || AppTime < Job.NotifyTime)
                 return;
             if (Job == null || Job.Job == null)
                 return;
@@ -267,11 +285,12 @@ namespace To_do_list
         private void checkBoxNotify_CheckedChanged(object sender, EventArgs e)
         {
             nUDNotify.Enabled = checkBoxNotify.Checked;
+            Job.NotifyStatus = checkBoxNotify.Checked;
         }
 
         private void nUDNotify_ValueChanged(object sender, EventArgs e)
         {
-            Const.notifyTime = (int)nUDNotify.Value;
+            Job.NotifyTime = (int)nUDNotify.Value;
             
         }
     }

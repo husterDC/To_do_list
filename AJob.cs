@@ -32,12 +32,14 @@ namespace To_do_list
             nUDFromHour.Value = Job.FromTime.X;
             nUDFromMinute.Value = Job.FromTime.Y;
             nUDToHour.Value = Job.ToTime.X;
-            nUDToMinute.Value = Job.ToTime.Y;
-            cbStatus.SelectedIndex = PlanItem.ListStatus.IndexOf(Job.Status);
-
+            nUDToMinute.Value = Job.ToTime.Y;          
+            cbStatus.SelectedIndex = PlanItem.ListStatus.IndexOf(Job.Status);           
             checkBoxDone.Checked = PlanItem.ListStatus.IndexOf(Job.Status) == (int)EPlanItem.Done ? true : false;
 
         }
+
+        
+
 
         private event EventHandler edited;
 
@@ -70,16 +72,45 @@ namespace To_do_list
             Job.FromTime = new Point((int)nUDFromHour.Value, (int)nUDFromMinute.Value);
             Job.ToTime = new Point((int)nUDToHour.Value, (int)nUDToMinute.Value);
             Job.Status = PlanItem.ListStatus[cbStatus.SelectedIndex];
-
+            
             if (edited != null)
             {
                 edited(this, new EventArgs());
             }
+            
         }
 
         private void checkBoxDone_CheckedChanged(object sender, EventArgs e)
         {
             cbStatus.SelectedIndex = checkBoxDone.Checked ? (int)EPlanItem.Done : (int)EPlanItem.Doing;
+        }
+
+        private void nUDFromHour_ValueChanged(object sender, EventArgs e)
+        {
+            if(nUDFromHour.Value > nUDToHour.Value )
+            {
+                nUDToHour.Value = nUDFromHour.Value;
+            }
+        }
+
+        private void nUDFromMinute_ValueChanged(object sender, EventArgs e)
+        {
+            if (nUDFromHour.Value <= nUDToHour.Value && nUDFromMinute.Value > nUDToMinute.Value)
+            {
+                nUDToMinute.Value = nUDFromMinute.Value;
+            }
+        }
+
+        private void cbStatus_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (cbStatus.SelectedItem == "Done")
+            {
+                checkBoxDone.Checked = true;
+            }
+            else
+            {
+                checkBoxDone.Checked = false;
+            }
         }
     }
 }

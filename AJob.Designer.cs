@@ -92,13 +92,14 @@
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(96, 24);
             this.cbStatus.TabIndex = 2;
+            this.cbStatus.SelectedValueChanged += new System.EventHandler(this.cbStatus_SelectedValueChanged);
             // 
             // textbJob
             // 
             this.textbJob.Location = new System.Drawing.Point(37, 2);
             this.textbJob.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textbJob.Name = "textbJob";
-            this.textbJob.Size = new System.Drawing.Size(391, 22);
+            this.textbJob.Size = new System.Drawing.Size(351, 22);
             this.textbJob.TabIndex = 1;
             // 
             // checkBoxDone
@@ -119,32 +120,42 @@
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.nUDFromMinute);
             this.panel2.Controls.Add(this.nUDFromHour);
-            this.panel2.Location = new System.Drawing.Point(437, 2);
+            this.panel2.Location = new System.Drawing.Point(397, 2);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(219, 30);
+            this.panel2.Size = new System.Drawing.Size(259, 30);
             this.panel2.TabIndex = 1;
             // 
             // nUDToMinute
             // 
-            this.nUDToMinute.Location = new System.Drawing.Point(171, 2);
+            this.nUDToMinute.Location = new System.Drawing.Point(205, 4);
             this.nUDToMinute.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nUDToMinute.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
             this.nUDToMinute.Name = "nUDToMinute";
-            this.nUDToMinute.Size = new System.Drawing.Size(37, 22);
+            this.nUDToMinute.Size = new System.Drawing.Size(50, 22);
             this.nUDToMinute.TabIndex = 4;
             // 
             // nUDToHour
             // 
-            this.nUDToHour.Location = new System.Drawing.Point(127, 2);
+            this.nUDToHour.Location = new System.Drawing.Point(149, 4);
             this.nUDToHour.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nUDToHour.Maximum = new decimal(new int[] {
+            23,
+            0,
+            0,
+            0});
             this.nUDToHour.Name = "nUDToHour";
-            this.nUDToHour.Size = new System.Drawing.Size(37, 22);
+            this.nUDToHour.Size = new System.Drawing.Size(50, 22);
             this.nUDToHour.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(92, 6);
+            this.label1.Location = new System.Drawing.Point(116, 6);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(31, 16);
             this.label1.TabIndex = 2;
@@ -152,19 +163,31 @@
             // 
             // nUDFromMinute
             // 
-            this.nUDFromMinute.Location = new System.Drawing.Point(48, 2);
+            this.nUDFromMinute.Location = new System.Drawing.Point(60, 4);
             this.nUDFromMinute.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nUDFromMinute.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
             this.nUDFromMinute.Name = "nUDFromMinute";
-            this.nUDFromMinute.Size = new System.Drawing.Size(37, 22);
+            this.nUDFromMinute.Size = new System.Drawing.Size(50, 22);
             this.nUDFromMinute.TabIndex = 1;
+            this.nUDFromMinute.ValueChanged += new System.EventHandler(this.nUDFromMinute_ValueChanged);
             // 
             // nUDFromHour
             // 
             this.nUDFromHour.Location = new System.Drawing.Point(4, 4);
             this.nUDFromHour.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nUDFromHour.Maximum = new decimal(new int[] {
+            23,
+            0,
+            0,
+            0});
             this.nUDFromHour.Name = "nUDFromHour";
-            this.nUDFromHour.Size = new System.Drawing.Size(37, 22);
+            this.nUDFromHour.Size = new System.Drawing.Size(50, 22);
             this.nUDFromHour.TabIndex = 0;
+            this.nUDFromHour.ValueChanged += new System.EventHandler(this.nUDFromHour_ValueChanged);
             // 
             // AJob
             // 

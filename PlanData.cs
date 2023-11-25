@@ -11,6 +11,11 @@ namespace To_do_list
     {
         private List<PlanItem> job;
 
+        private int notifyTime;
+
+        private bool notifyStatus;
         public List<PlanItem> Job { get => job; set => job = value; }
+        public int NotifyTime { get => notifyTime; set => notifyTime = value; }
+        public bool NotifyStatus { get => notifyStatus; set => notifyStatus = value; }
     }
 }

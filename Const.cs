@@ -15,9 +15,7 @@ namespace To_do_list
         public static int dateBtnHeigth = 52;
 
         public static int dateBtnMargin = 4;
-
-
-        public static int notifyTime = 1;
+      
         public static int notifyTimeOut = 10;
     }
 }

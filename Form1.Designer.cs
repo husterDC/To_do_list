@@ -114,7 +114,7 @@
             this.checkBoxNotify.AutoSize = true;
             this.checkBoxNotify.Checked = true;
             this.checkBoxNotify.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxNotify.Location = new System.Drawing.Point(16, 11);
+            this.checkBoxNotify.Location = new System.Drawing.Point(16, 12);
             this.checkBoxNotify.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxNotify.Name = "checkBoxNotify";
             this.checkBoxNotify.Size = new System.Drawing.Size(95, 20);

@@ -91,8 +91,8 @@ namespace To_do_list
 
         private void addJobToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
-            PlanItem item = new PlanItem() { Date = dateTimePickerDate.Value };
+            DateTime date = DateTime.Now;
+            PlanItem item = new PlanItem() { FromTime = new Point(date.Hour,date.Minute),ToTime =  new Point(date.Hour, date.Minute +1), Date = dateTimePickerDate.Value, Status = "Coming" };
             Job.Job.Add(item);
             AddJob(item);
         }
